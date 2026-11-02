@@ -1,0 +1,14 @@
+---
+description: Keep README and related docs in sync when behavior or content changes
+alwaysApply: true
+---
+
+# Docs sync
+
+When a change affects product behavior, content structure, privacy, accessibility claims, setup, or contribution workflow — **before finishing** — update every affected doc:
+
+1. `README.md`
+2. `CONTRIBUTING.md`, `PRIVACY.md`, `SECURITY.md`, `LICENSE` notices when relevant
+3. In-app legal/content pages (`app/privacy`, `app/accessibilita`, `lib/site.ts`, `lib/seo.ts`) when the public site copy must match
+
+Do not leave docs describing old behavior. Prefer short, accurate updates over new files.
