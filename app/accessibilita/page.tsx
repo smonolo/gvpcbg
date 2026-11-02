@@ -62,8 +62,9 @@ export default function AccessibilitaPage() {
                 link “Vai al contenuto principale”.
               </li>
               <li>
-                Navigazione completa da tastiera, focus visibile e menu mobile
-                con etichette ARIA e chiusura con Esc.
+                Navigazione completa da tastiera, focus visibile e menu mobile a
+                schermo intero con etichette ARIA, focus trap e chiusura con
+                Esc.
               </li>
               <li>
                 Aree cliccabili di almeno 44×44 px e layout responsive senza
