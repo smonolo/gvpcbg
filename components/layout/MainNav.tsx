@@ -44,23 +44,6 @@ export function MainNav() {
   return (
     <div className="border-b border-neutral-border bg-white">
       <div className="container-content">
-        <div className="flex items-center justify-between gap-3 py-2 md:hidden">
-          <p id={toggleId} className="text-sm font-semibold text-neutral">
-            Menu di navigazione
-          </p>
-          <button
-            ref={toggleRef}
-            type="button"
-            className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-sm border border-neutral-border bg-white px-3 font-semibold text-primary"
-            aria-expanded={open}
-            aria-controls={menuId}
-            aria-labelledby={toggleId}
-            onClick={() => setOpen(value => !value)}
-          >
-            {open ? 'Chiudi' : 'Apri'}
-          </button>
-        </div>
-
         {open ? (
           <button
             type="button"
@@ -73,40 +56,55 @@ export function MainNav() {
           />
         ) : null}
 
-        <nav
-          aria-label="Navigazione principale"
-          id={menuId}
-          className="relative z-40"
-        >
-          <ul
-            className={cn(
-              'flex-col gap-1 pb-3 md:flex md:flex-row md:items-stretch md:gap-0 md:pb-0',
-              open ? 'flex' : 'hidden md:flex'
-            )}
-          >
-            {mainNav.map((item, index) => {
-              const active = isActivePath(pathname, item.href)
-              return (
-                <li key={item.href}>
-                  <Link
-                    ref={index === 0 ? firstLinkRef : undefined}
-                    href={item.href}
-                    aria-current={active ? 'page' : undefined}
-                    onClick={() => setOpen(false)}
-                    className={cn(
-                      'flex min-h-11 items-center border-b-4 px-3 py-3 text-base font-semibold no-underline transition-colors md:px-4',
-                      active
-                        ? 'border-primary text-primary'
-                        : 'border-transparent text-neutral hover:border-primary-light hover:text-primary'
-                    )}
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              )
-            })}
-          </ul>
-        </nav>
+        <div className="relative z-40 bg-white">
+          <div className="flex items-center justify-between gap-3 py-2 md:hidden">
+            <p id={toggleId} className="text-sm font-semibold text-neutral">
+              Menu di navigazione
+            </p>
+            <button
+              ref={toggleRef}
+              type="button"
+              className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-sm border border-neutral-border bg-white px-3 font-semibold text-primary"
+              aria-expanded={open}
+              aria-controls={menuId}
+              aria-labelledby={toggleId}
+              onClick={() => setOpen(value => !value)}
+            >
+              {open ? 'Chiudi' : 'Apri'}
+            </button>
+          </div>
+
+          <nav aria-label="Navigazione principale" id={menuId}>
+            <ul
+              className={cn(
+                'flex-col gap-1 bg-white pb-3 md:flex md:flex-row md:items-stretch md:gap-0 md:pb-0',
+                open ? 'flex' : 'hidden md:flex'
+              )}
+            >
+              {mainNav.map((item, index) => {
+                const active = isActivePath(pathname, item.href)
+                return (
+                  <li key={item.href}>
+                    <Link
+                      ref={index === 0 ? firstLinkRef : undefined}
+                      href={item.href}
+                      aria-current={active ? 'page' : undefined}
+                      onClick={() => setOpen(false)}
+                      className={cn(
+                        'flex min-h-11 items-center border-b-4 px-3 py-3 text-base font-semibold no-underline transition-colors md:px-4',
+                        active
+                          ? 'border-primary text-primary'
+                          : 'border-transparent text-neutral hover:border-primary-light hover:text-primary'
+                      )}
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                )
+              })}
+            </ul>
+          </nav>
+        </div>
       </div>
     </div>
   )
