@@ -1,0 +1,174 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@theme inline {
+  --color-primary: #0066cc;
+  --color-primary-hover: #004d99;
+  --color-primary-light: #bfdfff;
+  --color-primary-lighter: #f2f7fc;
+  --color-primary-dark: #003366;
+  --color-primary-foreground: #ffffff;
+  --color-brand: #c8102e;
+  --color-brand-dark: #9a0c23;
+  --color-neutral: #17324d;
+  --color-neutral-secondary: #5c6f82;
+  --color-neutral-border: #d9dadb;
+  --color-neutral-bg-soft: #fafafa;
+  --color-focus: #ff8c00;
+  --color-background: #ffffff;
+  --color-foreground: #17324d;
+  --color-card: #ffffff;
+  --color-card-foreground: #17324d;
+  --color-popover: #ffffff;
+  --color-popover-foreground: #17324d;
+  --color-secondary: #f2f7fc;
+  --color-secondary-foreground: #003366;
+  --color-muted: #f5f5f5;
+  --color-muted-foreground: #5c6f82;
+  --color-accent: #f2f7fc;
+  --color-accent-foreground: #0066cc;
+  --color-destructive: #cc334d;
+  --color-border: #d9dadb;
+  --color-input: #d9dadb;
+  --color-ring: #ff8c00;
+  --font-sans: var(--font-titillium);
+  --container-content: 73.25rem;
+  --radius-sm: 0.125rem;
+  --radius-md: 0.125rem;
+  --radius-lg: 0.125rem;
+  --radius-xl: 0.25rem;
+}
+
+@layer base {
+  html {
+    @apply cursor-default scroll-smooth font-sans;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      @apply scroll-auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  body {
+    @apply cursor-default bg-background font-sans leading-normal text-foreground;
+  }
+
+  :focus-visible {
+    @apply outline-3 outline-offset-2 outline-focus;
+  }
+
+  a {
+    @apply text-primary underline-offset-[0.15em];
+  }
+
+  a:hover {
+    @apply text-primary-hover;
+  }
+
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  li,
+  dt,
+  dd,
+  blockquote,
+  figcaption,
+  address,
+  pre,
+  code,
+  time {
+    @apply cursor-text;
+  }
+
+  a[href],
+  area[href],
+  button,
+  summary,
+  label[for],
+  [role='button'],
+  [role='link'],
+  [role='tab'],
+  [role='menuitem'],
+  [role='option'],
+  [role='switch'],
+  [role='checkbox'],
+  [role='radio'],
+  input[type='button'],
+  input[type='submit'],
+  input[type='reset'],
+  input[type='checkbox'],
+  input[type='radio'],
+  input[type='file'],
+  input[type='range'],
+  input[type='color'],
+  input[type='image'],
+  select,
+  ::file-selector-button {
+    @apply cursor-pointer;
+  }
+
+  a[href] *,
+  button *,
+  summary *,
+  label[for] *,
+  [role='button'] *,
+  [role='link'] *,
+  [role='tab'] *,
+  [role='menuitem'] * {
+    cursor: inherit;
+  }
+
+  input:not([type]),
+  input[type='text'],
+  input[type='search'],
+  input[type='email'],
+  input[type='tel'],
+  input[type='url'],
+  input[type='password'],
+  input[type='number'],
+  input[type='date'],
+  input[type='datetime-local'],
+  input[type='month'],
+  input[type='week'],
+  input[type='time'],
+  textarea,
+  [contenteditable='true'] {
+    @apply cursor-text;
+  }
+
+  :disabled,
+  [disabled],
+  [aria-disabled='true'] {
+    @apply cursor-not-allowed;
+  }
+}
+
+@utility container-content {
+  @apply mx-auto w-full max-w-[var(--container-content)] px-4 md:px-6;
+}
+
+@utility hero-wash {
+  background-image:
+    radial-gradient(
+      circle at 20% 20%,
+      rgba(191, 223, 255, 0.35),
+      transparent 40%
+    ),
+    radial-gradient(circle at 80% 0%, rgba(200, 16, 46, 0.28), transparent 35%),
+    linear-gradient(135deg, rgba(0, 51, 102, 0.9), rgba(0, 102, 204, 0.55));
+}
