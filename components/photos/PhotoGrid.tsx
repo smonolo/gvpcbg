@@ -11,13 +11,17 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
-import { cn } from '@/lib/utils'
 import { photoCategories, type Photo, type PhotoCategory } from '@/lib/photos'
+import { cn } from '@/lib/utils'
 
 type PhotoGridProps = {
   photos: readonly Photo[]
   showFilters?: boolean
   columns?: 'home' | 'page'
+}
+
+function wrapIndex(index: number, delta: number, length: number) {
+  return (index + delta + length) % length
 }
 
 export function PhotoGrid({
@@ -41,27 +45,25 @@ export function PhotoGrid({
   const open = active !== null
   const filterLabel =
     filter === 'all' ? 'tutte le categorie' : photoCategories[filter].label
+  const canNavigate = filtered.length > 1
 
   useEffect(() => {
-    if (!open) return
+    if (!open || !canNavigate) return
 
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'ArrowRight') {
         event.preventDefault()
-        const next = filtered[(activeIndex + 1) % filtered.length]
-        setActiveId(next.id)
+        setActiveId(filtered[wrapIndex(activeIndex, 1, filtered.length)].id)
       }
       if (event.key === 'ArrowLeft') {
         event.preventDefault()
-        const prev =
-          filtered[(activeIndex - 1 + filtered.length) % filtered.length]
-        setActiveId(prev.id)
+        setActiveId(filtered[wrapIndex(activeIndex, -1, filtered.length)].id)
       }
     }
 
     window.addEventListener('keydown', onKeyDown)
     return () => window.removeEventListener('keydown', onKeyDown)
-  }, [open, activeIndex, filtered])
+  }, [open, canNavigate, activeIndex, filtered])
 
   return (
     <div>
@@ -89,10 +91,15 @@ export function PhotoGrid({
         </div>
       ) : null}
 
-      <p id={statusId} className="sr-only" aria-live="polite" aria-atomic="true">
+      <p
+        id={statusId}
+        className="sr-only"
+        aria-live="polite"
+        aria-atomic="true"
+      >
         {filtered.length === 0
           ? `Nessuna foto disponibile per ${filterLabel}.`
-          : `${filtered.length} ${filtered.length === 1 ? 'foto' : 'foto'} in ${filterLabel}.`}
+          : `${filtered.length} foto in ${filterLabel}.`}
       </p>
 
       {filtered.length === 0 ? (
@@ -151,7 +158,7 @@ export function PhotoGrid({
           if (!nextOpen) setActiveId(null)
         }}
       >
-        <DialogContent showCloseButton>
+        <DialogContent>
           {active ? (
             <>
               <DialogHeader>
@@ -169,41 +176,42 @@ export function PhotoGrid({
                 <DialogDescription className="mt-4">
                   {active.caption}
                 </DialogDescription>
-                {filtered.length > 1 ? (
-                  <p className="mt-2 text-sm text-neutral-secondary" aria-live="polite">
+                {canNavigate ? (
+                  <p
+                    className="mt-2 text-sm text-neutral-secondary"
+                    aria-live="polite"
+                  >
                     Foto {activeIndex + 1} di {filtered.length}. Usa i tasti
                     freccia per navigare.
                   </p>
                 ) : null}
               </div>
-              {filtered.length > 1 ? (
+              {canNavigate ? (
                 <DialogFooter>
                   <Button
                     variant="outline"
                     aria-label={`Foto precedente: ${
-                      filtered[
-                        (activeIndex - 1 + filtered.length) % filtered.length
-                      ].title
+                      filtered[wrapIndex(activeIndex, -1, filtered.length)]
+                        .title
                     }`}
-                    onClick={() => {
-                      const prev =
-                        filtered[
-                          (activeIndex - 1 + filtered.length) % filtered.length
-                        ]
-                      setActiveId(prev.id)
-                    }}
+                    onClick={() =>
+                      setActiveId(
+                        filtered[wrapIndex(activeIndex, -1, filtered.length)].id
+                      )
+                    }
                   >
                     Precedente
                   </Button>
                   <Button
                     variant="outline"
                     aria-label={`Foto successiva: ${
-                      filtered[(activeIndex + 1) % filtered.length].title
+                      filtered[wrapIndex(activeIndex, 1, filtered.length)].title
                     }`}
-                    onClick={() => {
-                      const next = filtered[(activeIndex + 1) % filtered.length]
-                      setActiveId(next.id)
-                    }}
+                    onClick={() =>
+                      setActiveId(
+                        filtered[wrapIndex(activeIndex, 1, filtered.length)].id
+                      )
+                    }
                   >
                     Successiva
                   </Button>

@@ -19,7 +19,9 @@ export function Hero() {
           {site.name}
         </h1>
         <p className="mt-2 text-xl text-white/90">{site.aka}</p>
-        <p className="mt-5 max-w-2xl text-lg text-white/90">{site.description}</p>
+        <p className="mt-5 max-w-2xl text-lg text-white/90">
+          {site.description}
+        </p>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
           <Button href="/diventa-volontario" variant="secondary" size="lg">
             Diventa volontario

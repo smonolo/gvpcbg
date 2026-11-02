@@ -1,0 +1,14 @@
+---
+description: No comments; keep code clean, lean, and deduplicated
+alwaysApply: true
+---
+
+# Code quality
+
+- Never add code comments: no `//`, `/* */`, JSDoc/`/** */`, or JSX `{/* */}`. Do not leave commented-out code. Generated files (e.g. `next-env.d.ts`) are exempt.
+- Prefer clear names and structure over explaining code in prose.
+- After substantive edits, remove dead code, unused exports/deps, duplicate helpers, and leftover scaffolding.
+- Prefer shared utils over copy-paste (`lib/`, shared components). Extend existing helpers before adding parallel ones.
+- Keep diffs focused: no drive-by refactors unrelated to the task; no unsolicited docs/markdown.
+- Prefer simple, readable implementations; avoid unnecessary abstraction, memoization, or “clever” patterns unless already established in the repo.
+- Do not inflate UI for accessibility theater (e.g. forcing large min-heights on every text link). Keep touch targets on real controls; keep layout compact.

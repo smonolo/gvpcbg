@@ -1,0 +1,17 @@
+---
+description: Always format with the project Prettier config
+alwaysApply: true
+---
+
+# Formatting
+
+- Match `.prettierrc`: no semicolons, single quotes, `trailingComma: "es5"`, `arrowParens: "avoid"`, and `prettier-plugin-tailwindcss` (class order from `app/globals.css`).
+- After creating or editing source files, run Prettier before finishing:
+
+```bash
+npm run format
+```
+
+- Or format only touched paths: `npx prettier --write <paths>`
+- Do not fight the formatter (manual class reordering, alternate quote/semi style, etc.).
+- Keep `npm run lint` clean on changed files; fix issues you introduce.

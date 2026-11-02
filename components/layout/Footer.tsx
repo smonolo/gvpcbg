@@ -28,7 +28,7 @@ export function Footer() {
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="inline-flex min-h-11 items-center text-white hover:underline"
+                  className="inline-flex py-1 text-white hover:underline"
                 >
                   {item.label}
                 </Link>
@@ -54,7 +54,7 @@ export function Footer() {
               Tel.{' '}
               <a
                 href={site.phone.href}
-                className="inline-flex min-h-11 items-center text-white hover:underline"
+                className="text-white hover:underline"
                 aria-label={`Telefono ${site.phone.display}`}
               >
                 {site.phone.display}
@@ -64,7 +64,7 @@ export function Footer() {
               Email{' '}
               <a
                 href={site.email.href}
-                className="inline-flex min-h-11 items-center text-white hover:underline"
+                className="text-white hover:underline"
                 aria-label={`Email ${site.email.display}`}
               >
                 {site.email.display}
@@ -73,7 +73,7 @@ export function Footer() {
             <p>
               <a
                 href={site.social.facebook.href}
-                className="inline-flex min-h-11 items-center text-white hover:underline"
+                className="text-white hover:underline"
                 aria-label={opensInNewTabLabel(
                   `Pagina Facebook ufficiale di ${site.shortName}`
                 )}
@@ -97,7 +97,7 @@ export function Footer() {
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="inline-flex min-h-11 items-center text-white hover:underline"
+                    className="inline-flex py-1 text-white hover:underline"
                   >
                     {item.label}
                   </Link>

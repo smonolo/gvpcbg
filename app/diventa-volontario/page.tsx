@@ -102,7 +102,7 @@ export default function DiventaVolontarioPage() {
             Puoi scriverci a{' '}
             <a
               href={site.email.href}
-              className="inline-flex min-h-11 items-center font-semibold"
+              className="font-semibold"
               aria-label={`Email ${site.email.display}`}
             >
               {site.email.display}
@@ -110,7 +110,7 @@ export default function DiventaVolontarioPage() {
             , chiamare il{' '}
             <a
               href={site.phone.href}
-              className="inline-flex min-h-11 items-center font-semibold"
+              className="font-semibold"
               aria-label={`Telefono ${site.phone.display}`}
             >
               {site.phone.display}

@@ -7,7 +7,6 @@ type SectionProps = {
   lead?: string
   children: ReactNode
   className?: string
-  /** Use light text on dark backgrounds (e.g. CTA bands). */
   invert?: boolean
 }
 

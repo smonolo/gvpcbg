@@ -26,20 +26,13 @@ export function Breadcrumbs({ items }: BreadcrumbsProps) {
                 </span>
               ) : null}
               {item.href && !isLast ? (
-                <Link
-                  href={item.href}
-                  className="inline-flex min-h-11 items-center rounded-sm px-1 hover:underline"
-                >
+                <Link href={item.href} className="hover:underline">
                   {item.label}
                 </Link>
               ) : (
                 <span
                   aria-current={isLast ? 'page' : undefined}
-                  className={
-                    isLast
-                      ? 'inline-flex min-h-11 items-center px-1 font-semibold text-neutral'
-                      : 'inline-flex min-h-11 items-center px-1'
-                  }
+                  className={isLast ? 'font-semibold text-neutral' : undefined}
                 >
                   {item.label}
                 </span>

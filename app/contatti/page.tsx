@@ -47,7 +47,7 @@ export default function ContattiPage() {
                 Telefono:{' '}
                 <a
                   href={site.phone.href}
-                  className="inline-flex min-h-11 items-center font-semibold"
+                  className="font-semibold"
                   aria-label={`Telefono ${site.phone.display}`}
                 >
                   {site.phone.display}
@@ -57,7 +57,7 @@ export default function ContattiPage() {
                 Email:{' '}
                 <a
                   href={site.email.href}
-                  className="inline-flex min-h-11 items-center font-semibold"
+                  className="font-semibold"
                   aria-label={`Email ${site.email.display}`}
                 >
                   {site.email.display}

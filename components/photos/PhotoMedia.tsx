@@ -6,7 +6,6 @@ type PhotoMediaProps = {
   priority?: boolean
   sizes?: string
   className?: string
-  /** When true, alt is empty because adjacent text already describes the image. */
   decorative?: boolean
 }
 
@@ -17,32 +16,18 @@ export function PhotoMedia({
   className = 'h-full w-full object-cover',
   decorative = false,
 }: PhotoMediaProps) {
-  const alt = decorative ? '' : photo.alt
-
-  if (photo.src.endsWith('.svg')) {
-    return (
-      // eslint-disable-next-line @next/next/no-img-element
-      <img
-        src={photo.src}
-        alt={alt}
-        width={photo.width}
-        height={photo.height}
-        className={className}
-        loading={priority ? 'eager' : 'lazy'}
-        decoding="async"
-      />
-    )
-  }
+  const svg = photo.src.endsWith('.svg')
 
   return (
     <Image
       src={photo.src}
-      alt={alt}
+      alt={decorative ? '' : photo.alt}
       width={photo.width}
       height={photo.height}
       sizes={sizes}
       className={className}
       priority={priority}
+      unoptimized={svg}
     />
   )
 }

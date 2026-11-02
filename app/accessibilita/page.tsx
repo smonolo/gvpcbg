@@ -33,7 +33,10 @@ export default function AccessibilitaPage() {
       <Section>
         <div className="max-w-3xl space-y-8 text-neutral-secondary">
           <section className="space-y-3" aria-labelledby="impegno-heading">
-            <h2 id="impegno-heading" className="text-2xl font-bold text-neutral">
+            <h2
+              id="impegno-heading"
+              className="text-2xl font-bold text-neutral"
+            >
               Il nostro impegno
             </h2>
             <p>
@@ -98,7 +101,7 @@ export default function AccessibilitaPage() {
               a{' '}
               <a
                 href={site.email.href}
-                className="inline-flex min-h-11 items-center font-semibold"
+                className="font-semibold"
                 aria-label={`Email ${site.email.display}`}
               >
                 {site.email.display}

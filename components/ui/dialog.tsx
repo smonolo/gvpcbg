@@ -1,24 +1,11 @@
 'use client'
 
-import * as React from 'react'
+import type { ComponentProps } from 'react'
 import { Dialog as DialogPrimitive } from '@base-ui/react/dialog'
-import { XIcon } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
-function Dialog({ ...props }: DialogPrimitive.Root.Props) {
+function Dialog(props: DialogPrimitive.Root.Props) {
   return <DialogPrimitive.Root data-slot="dialog" {...props} />
-}
-
-function DialogTrigger({ ...props }: DialogPrimitive.Trigger.Props) {
-  return <DialogPrimitive.Trigger data-slot="dialog-trigger" {...props} />
-}
-
-function DialogPortal({ ...props }: DialogPrimitive.Portal.Props) {
-  return <DialogPrimitive.Portal data-slot="dialog-portal" {...props} />
-}
-
-function DialogClose({ ...props }: DialogPrimitive.Close.Props) {
-  return <DialogPrimitive.Close data-slot="dialog-close" {...props} />
 }
 
 function DialogOverlay({
@@ -46,7 +33,7 @@ function DialogContent({
   showCloseButton?: boolean
 }) {
   return (
-    <DialogPortal>
+    <DialogPrimitive.Portal>
       <DialogOverlay />
       <DialogPrimitive.Popup
         data-slot="dialog-content"
@@ -63,16 +50,26 @@ function DialogContent({
             data-slot="dialog-close"
             className="absolute top-3 right-3 inline-flex min-h-11 min-w-11 items-center justify-center rounded-sm border border-neutral-border bg-white text-primary hover:bg-primary-lighter"
           >
-            <XIcon className="size-4" aria-hidden="true" />
+            <svg
+              viewBox="0 0 24 24"
+              className="size-4"
+              aria-hidden="true"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+            >
+              <path d="M18 6 6 18M6 6l12 12" />
+            </svg>
             <span className="sr-only">Chiudi finestra di dialogo</span>
           </DialogPrimitive.Close>
         ) : null}
       </DialogPrimitive.Popup>
-    </DialogPortal>
+    </DialogPrimitive.Portal>
   )
 }
 
-function DialogHeader({ className, ...props }: React.ComponentProps<'div'>) {
+function DialogHeader({ className, ...props }: ComponentProps<'div'>) {
   return (
     <div
       data-slot="dialog-header"
@@ -85,7 +82,7 @@ function DialogHeader({ className, ...props }: React.ComponentProps<'div'>) {
   )
 }
 
-function DialogFooter({ className, ...props }: React.ComponentProps<'div'>) {
+function DialogFooter({ className, ...props }: ComponentProps<'div'>) {
   return (
     <div
       data-slot="dialog-footer"
@@ -123,13 +120,9 @@ function DialogDescription({
 
 export {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
-  DialogOverlay,
-  DialogPortal,
   DialogTitle,
-  DialogTrigger,
 }

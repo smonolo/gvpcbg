@@ -39,31 +39,11 @@ type ButtonAsLink = CommonProps & {
 }
 
 function isAbsoluteHref(href: string) {
-  return (
-    href.startsWith('http://') ||
-    href.startsWith('https://') ||
-    href.startsWith('mailto:') ||
-    href.startsWith('tel:') ||
-    href.startsWith('#')
-  )
+  return /^(https?:|mailto:|tel:|#)/.test(href)
 }
 
 function isExternalHttp(href: string) {
-  return href.startsWith('http://') || href.startsWith('https://')
-}
-
-function resolveAriaLabel(
-  children: ReactNode,
-  ariaLabel: string | undefined,
-  external: boolean
-) {
-  if (ariaLabel) {
-    return external ? opensInNewTabLabel(ariaLabel) : ariaLabel
-  }
-  if (external && typeof children === 'string') {
-    return opensInNewTabLabel(children)
-  }
-  return ariaLabel
+  return /^https?:/.test(href)
 }
 
 export function Button(props: ButtonAsButton | ButtonAsLink) {
@@ -84,7 +64,14 @@ export function Button(props: ButtonAsButton | ButtonAsLink) {
   if ('href' in props && props.href) {
     const { href } = props
     const external = isExternalHttp(href)
-    const label = resolveAriaLabel(children, ariaLabel, external)
+    const label =
+      ariaLabel != null
+        ? external
+          ? opensInNewTabLabel(ariaLabel)
+          : ariaLabel
+        : external && typeof children === 'string'
+          ? opensInNewTabLabel(children)
+          : ariaLabel
 
     if (isAbsoluteHref(href)) {
       return (
@@ -92,7 +79,9 @@ export function Button(props: ButtonAsButton | ButtonAsLink) {
           href={href}
           className={classes}
           aria-label={label}
-          {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+          {...(external
+            ? { target: '_blank', rel: 'noopener noreferrer' }
+            : {})}
         >
           {children}
         </a>
