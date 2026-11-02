@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { site } from '@/lib/site'
+import { site, siteUrl } from '@/lib/site'
 
 export const seo = {
   titleDefault: `${site.shortName} · ${site.name}`,
@@ -141,7 +141,7 @@ type PageSeo = {
 }
 
 export function buildMetadata(page: PageSeo): Metadata {
-  const url = page.path === '/' ? site.url : `${site.url}${page.path}`
+  const url = page.path === '/' ? siteUrl() : `${siteUrl()}${page.path}`
   const title = page.absoluteTitle ? { absolute: page.title } : page.title
   const keywords = [...seo.keywords, ...(page.keywords ?? [])]
   const image = {
@@ -182,14 +182,14 @@ export function buildMetadata(page: PageSeo): Metadata {
 
 export function rootMetadata(): Metadata {
   return {
-    metadataBase: new URL(site.url),
+    metadataBase: new URL(siteUrl()),
     title: {
       default: seo.titleDefault,
       template: seo.titleTemplate,
     },
     description: seo.description,
     applicationName: site.shortName,
-    authors: [{ name: site.fullName, url: site.url }],
+    authors: [{ name: site.fullName, url: siteUrl() }],
     creator: site.fullName,
     publisher: site.fullName,
     category: 'Protezione Civile',
@@ -219,7 +219,7 @@ export function rootMetadata(): Metadata {
       siteName: site.fullName,
       title: seo.titleDefault,
       description: seo.description,
-      url: site.url,
+      url: siteUrl(),
       images: [
         {
           url: seo.ogImage.path,
@@ -248,14 +248,14 @@ export function organizationJsonLd() {
   return {
     '@context': 'https://schema.org',
     '@type': ['NGO', 'CivicStructure'],
-    '@id': `${site.url}/#organization`,
+    '@id': `${siteUrl()}/#organization`,
     name: site.fullName,
     legalName: site.fullName,
     alternateName: [site.shortName, site.aka, site.name],
     description: site.description,
-    url: site.url,
-    logo: `${site.url}/images/logo.png`,
-    image: `${site.url}/images/logo.png`,
+    url: siteUrl(),
+    logo: `${siteUrl()}/images/logo.png`,
+    image: `${siteUrl()}/images/logo.png`,
     email: site.email.display,
     telephone: '+390331536636',
     foundingDate: String(site.foundedYear),
@@ -316,13 +316,13 @@ export function websiteJsonLd() {
   return {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    '@id': `${site.url}/#website`,
-    url: site.url,
+    '@id': `${siteUrl()}/#website`,
+    url: siteUrl(),
     name: seo.titleDefault,
     description: seo.description,
     inLanguage: seo.language,
     publisher: {
-      '@id': `${site.url}/#organization`,
+      '@id': `${siteUrl()}/#organization`,
     },
   }
 }
@@ -331,7 +331,7 @@ export function webPageJsonLd(
   page: PageSeo,
   options?: { type?: 'WebPage' | 'ContactPage' | 'AboutPage' }
 ) {
-  const url = page.path === '/' ? site.url : `${site.url}${page.path}`
+  const url = page.path === '/' ? siteUrl() : `${siteUrl()}${page.path}`
   const name = page.absoluteTitle
     ? page.title
     : `${page.title} · ${site.shortName}`
@@ -345,14 +345,14 @@ export function webPageJsonLd(
     description: page.description,
     inLanguage: seo.language,
     isPartOf: {
-      '@id': `${site.url}/#website`,
+      '@id': `${siteUrl()}/#website`,
     },
     about: {
-      '@id': `${site.url}/#organization`,
+      '@id': `${siteUrl()}/#organization`,
     },
     primaryImageOfPage: {
       '@type': 'ImageObject',
-      url: `${site.url}${seo.ogImage.path}`,
+      url: `${siteUrl()}${seo.ogImage.path}`,
     },
   }
 }
@@ -367,7 +367,7 @@ export function breadcrumbJsonLd(
       '@type': 'ListItem',
       position: index + 1,
       name: item.name,
-      item: item.path === '/' ? site.url : `${site.url}${item.path}`,
+      item: item.path === '/' ? siteUrl() : `${siteUrl()}${item.path}`,
     })),
   }
 }

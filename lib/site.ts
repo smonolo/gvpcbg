@@ -44,8 +44,20 @@ export const site = {
     section: 'Sezione D) Protezione Civile',
     details: 'foglio 570, progressivo 2275 (decreto 17/12/1997)',
   },
-  url: 'https://gvpcbg.it',
 } as const
+
+export function siteUrl() {
+  const configured = process.env.NEXT_PUBLIC_SITE_URL?.trim().replace(/\/$/, '')
+  if (configured) return configured
+
+  const vercel =
+    process.env.VERCEL_PROJECT_PRODUCTION_URL || process.env.VERCEL_URL
+  if (vercel) {
+    return `https://${vercel.replace(/^https?:\/\//, '')}`
+  }
+
+  return 'http://localhost:3000'
+}
 
 export function formatCityLine(
   address: typeof site.address = site.address

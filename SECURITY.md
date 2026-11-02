@@ -16,4 +16,4 @@ You should receive an acknowledgement within a few days. Please give reasonable 
 
 This repository is a mostly static Next.js marketing site. Reports about dependency CVEs, XSS in rendered content, open redirects, and misconfigured headers are welcome. Issues that require a production host misconfiguration may need coordination with whoever operates the deployment.
 
-For association contact details (non-security), use the addresses on [gvpcbg.it/contatti](https://gvpcbg.it/contatti).
+For association contact details (non-security), use the addresses on `/contatti` once the site is deployed, or the contacts in `lib/site.ts`.

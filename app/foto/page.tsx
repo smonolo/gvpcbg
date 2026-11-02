@@ -11,7 +11,7 @@ import {
   pages,
   webPageJsonLd,
 } from '@/lib/seo'
-import { site } from '@/lib/site'
+import { site, siteUrl } from '@/lib/site'
 
 export const metadata = buildMetadata(pages.foto)
 
@@ -21,10 +21,10 @@ export default function FotoPage() {
     '@type': 'ImageGallery',
     name: `Galleria fotografica · ${site.shortName}`,
     description: pages.foto.description,
-    url: `${site.url}${pages.foto.path}`,
-    isPartOf: { '@id': `${site.url}/#website` },
-    about: { '@id': `${site.url}/#organization` },
-    image: photos.map(photo => `${site.url}${photo.src}`),
+    url: `${siteUrl()}${pages.foto.path}`,
+    isPartOf: { '@id': `${siteUrl()}/#website` },
+    about: { '@id': `${siteUrl()}/#organization` },
+    image: photos.map(photo => `${siteUrl()}${photo.src}`),
   }
 
   return (

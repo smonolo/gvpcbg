@@ -2,7 +2,7 @@
 
 **Last updated:** 2 November 2026
 
-Canonical public notice (Italian): [gvpcbg.it/privacy](https://gvpcbg.it/privacy) · in-repo page: `app/privacy/page.tsx`
+Canonical public notice (Italian): `/privacy` · in-repo page: `app/privacy/page.tsx`
 
 This document summarizes how the **source-controlled marketing site** handles data. The **data controller** for the public website is the association **SAFETY TEAM OdV Gruppo Volontari Protezione Civile Busto Garolfo** (GVPCBG), not the individual software author.
 
@@ -24,7 +24,7 @@ This document summarizes how the **source-controlled marketing site** handles da
 
 ## Rights
 
-Data subjects may exercise GDPR rights against the association as controller, using the contacts on the [privacy page](https://gvpcbg.it/privacy) and [contatti](https://gvpcbg.it/contatti).
+Data subjects may exercise GDPR rights against the association as controller, using the contacts on `/privacy` and `/contatti`.
 
 ## Source code
 

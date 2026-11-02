@@ -4,7 +4,7 @@ Institutional website for **SAFETY TEAM OdV Gruppo Volontari Protezione Civile B
 
 Site UI language: **Italian** · Design: Designers Italia / AGID-inspired (Titillium Web, Blu Italia, slim header + brand + nav)
 
-Production: [gvpcbg.it](https://gvpcbg.it) · Facebook: [GVPCBG](https://www.facebook.com/GVPCBG/)
+Facebook: [GVPCBG](https://www.facebook.com/GVPCBG/)
 
 License: [PolyForm Noncommercial 1.0.0](./LICENSE) · Built by [Stefano Monolo](https://smnl.dev)
 
@@ -29,6 +29,8 @@ npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000).
+
+Canonical absolute URLs (sitemap, Open Graph, JSON-LD) come from `NEXT_PUBLIC_SITE_URL` when set, otherwise Vercel’s URL in that environment, otherwise `http://localhost:3000`. Set the env var once a production domain is chosen.
 
 ```bash
 npm run build
