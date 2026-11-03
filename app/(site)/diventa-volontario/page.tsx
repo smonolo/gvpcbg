@@ -53,15 +53,12 @@ export default function DiventaVolontarioPage() {
       />
       <PageHero
         title="Diventa volontario"
-        description="Metti tempo, energie e voglia di imparare al servizio della tua comunità."
+        description="Cosa comporta entrare nel gruppo e come candidarti."
         breadcrumbs={breadcrumbs('Diventa volontario')}
       />
 
-      <Section
-        title="Perché entrare nel gruppo"
-        lead="Il volontariato di Protezione Civile è un impegno serio e gratificante, fatto di formazione, squadra e responsabilità."
-      >
-        <div className="grid gap-5 md:grid-cols-3">
+      <Section title="Perché entrare nel gruppo">
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {reasons.map(item => (
             <Card key={item.title} title={item.title}>
               <p>{item.body}</p>

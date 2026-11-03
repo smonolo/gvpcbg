@@ -26,7 +26,7 @@ export default function AccessibilitaPage() {
       />
       <PageHero
         title="Accessibilità"
-        description="Impegno a rendere i contenuti fruibili da tutte le persone, in coerenza con le linee guida AGID."
+        description="Come rendiamo i contenuti fruibili, in linea con AGID e WCAG."
         breadcrumbs={breadcrumbs('Accessibilità')}
       />
 

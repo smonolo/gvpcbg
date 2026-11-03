@@ -26,7 +26,7 @@ export default function PrivacyPage() {
       />
       <PageHero
         title="Informativa privacy"
-        description="Informazioni sul trattamento dei dati personali connesso alla navigazione di questo sito."
+        description="Come trattiamo i dati di chi naviga questo sito."
         breadcrumbs={breadcrumbs('Privacy')}
       />
 
@@ -51,9 +51,14 @@ export default function PrivacyPage() {
             </h2>
             <p>
               Questo sito ha finalità informative e non richiede la creazione di
-              un account. Possono essere trattati dati di navigazione tecnici
-              (ad esempio log di sicurezza del server) strettamente necessari al
-              funzionamento del servizio.
+              un account da parte dei visitatori. Possono essere trattati dati
+              di navigazione tecnici (ad esempio log di sicurezza del server)
+              strettamente necessari al funzionamento del servizio.
+            </p>
+            <p>
+              Foto, avvisi e articoli pubblicati sul sito sono gestiti tramite
+              Sanity (Content Lake e CDN). Il trattamento riguarda i contenuti
+              pubblicati dall’associazione, non un profilo dei visitatori.
             </p>
             <p>
               Se ci contattate via email o telefono, tratteremo i dati che ci
@@ -81,7 +86,7 @@ export default function PrivacyPage() {
             </p>
           </section>
 
-          <p className="text-sm">Ultimo aggiornamento: novembre 2026.</p>
+          <p className="text-sm">Ultimo aggiornamento: 3 novembre 2026.</p>
         </div>
       </Section>
     </>

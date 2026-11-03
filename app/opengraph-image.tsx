@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og'
 import { site } from '@/lib/site'
 
-export const alt = `${site.shortName} — ${site.aka}`
+export const alt = `${site.name} — ${site.aka}`
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
@@ -24,19 +24,10 @@ export default function OpenGraphImage() {
       <div
         style={{
           display: 'flex',
-          alignItems: 'center',
-          gap: '16px',
-          fontSize: 28,
-          fontWeight: 700,
-          letterSpacing: '0.08em',
-          textTransform: 'uppercase',
-          color: '#bfdfff',
+          flexDirection: 'column',
+          gap: '18px',
         }}
       >
-        {site.shortName}
-      </div>
-
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
         <div
           style={{
             display: 'flex',

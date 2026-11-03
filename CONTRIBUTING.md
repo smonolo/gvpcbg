@@ -29,12 +29,21 @@ Agent rules live in `.cursor/rules/` and mirror these expectations.
 
 ## Content edits
 
+**Prefer Sanity Studio** (`/studio`) for day-to-day updates:
+
+- Photos, announcements, news articles → Sanity documents (no PR required)
+
+**Code / rare institutional copy:**
+
 - Contacts / identity → `lib/site.ts`
 - Navigation / activities → `lib/navigation.ts`
-- SEO copy → `lib/seo.ts`
-- Photos → `lib/photos.ts` + `public/photos/`
+- SEO page map → `lib/seo.ts`
+- Local gallery fallback → `lib/photos.ts` + `public/photos/`
+- Schemas / queries → `sanity/`
 
 Site chrome and pages should stay Italian unless you are explicitly asked to change language.
+
+Do not commit Sanity tokens or `.env.local`. Public project id / dataset may live in `.env.example` as placeholders only.
 
 ## Pull requests
 

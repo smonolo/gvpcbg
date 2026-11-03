@@ -34,6 +34,10 @@ export const photoCategories: Record<
   },
 }
 
+export function isPhotoCategory(value: string): value is PhotoCategory {
+  return value in photoCategories
+}
+
 export const photos: Photo[] = [
   {
     id: 'mast-2025',
@@ -97,7 +101,7 @@ export const photos: Photo[] = [
   {
     id: 'volontari',
     src: '/photos/volontari.svg',
-    alt: 'Gruppo di volontari SAFETY TEAM OdV GVPCBG',
+    alt: 'Gruppo di volontari SAFETY TEAM',
     title: 'I volontari',
     caption:
       'Il volto del gruppo: persone impegnate nel servizio alla comunità.',

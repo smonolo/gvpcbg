@@ -2,6 +2,7 @@ import { JsonLd } from '@/components/seo/JsonLd'
 import { Button } from '@/components/ui/Button'
 import { PageHero } from '@/components/ui/PageHero'
 import { Section } from '@/components/ui/Section'
+import { emergencyNumbers } from '@/lib/emergency'
 import { breadcrumbs } from '@/lib/navigation'
 import {
   breadcrumbJsonLd,
@@ -27,7 +28,7 @@ export default function ContattiPage() {
       />
       <PageHero
         title="Contatti"
-        description="Come raggiungerci e come parlare con il gruppo."
+        description="Sede, orari, recapiti del gruppo e numeri di emergenza."
         breadcrumbs={breadcrumbs('Contatti')}
       />
 
@@ -78,13 +79,13 @@ export default function ContattiPage() {
             </div>
           </div>
 
-          <div className="rounded-sm border border-neutral-border bg-primary-lighter p-6">
+          <div className="rounded-sm border border-neutral-border bg-white p-6 shadow-sm">
             <h2 className="text-2xl font-bold text-neutral">
               Orari di apertura
             </h2>
             <p className="mt-2 text-neutral-secondary">
-              Orari orientativi della sede operativa. In caso di emergenza o
-              necessità urgenti, contattateci telefonicamente.
+              Orari orientativi della sede operativa. Per urgenze sanitarie o di
+              soccorso usa i numeri di emergenza qui sotto.
             </p>
             <ul className="mt-6 divide-y divide-neutral-border overflow-hidden rounded-sm border border-neutral-border bg-white">
               {site.hours.map(slot => (
@@ -99,6 +100,35 @@ export default function ContattiPage() {
             </ul>
           </div>
         </div>
+      </Section>
+
+      <Section
+        className="bg-neutral-bg-soft"
+        title="Numeri di emergenza"
+        lead="In caso di pericolo chiama subito i numeri ufficiali. Il telefono della sede non sostituisce il soccorso pubblico."
+      >
+        <ul className="divide-y divide-neutral-border overflow-hidden rounded-sm border border-neutral-border bg-white">
+          {emergencyNumbers.map(entry => (
+            <li
+              key={entry.number}
+              className="flex flex-col gap-2 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:gap-6"
+            >
+              <div className="min-w-0">
+                <p className="font-semibold text-neutral">{entry.label}</p>
+                <p className="mt-1 text-sm text-neutral-secondary">
+                  {entry.detail}
+                </p>
+              </div>
+              <a
+                href={entry.href}
+                className="inline-flex min-h-11 w-full shrink-0 items-center justify-center rounded-sm border border-primary bg-primary-lighter px-4 text-2xl font-bold text-primary sm:w-auto sm:justify-end sm:border-0 sm:bg-transparent sm:px-0"
+                aria-label={`Chiama ${entry.label}: ${entry.number}`}
+              >
+                {entry.number}
+              </a>
+            </li>
+          ))}
+        </ul>
       </Section>
     </>
   )

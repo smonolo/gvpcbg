@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useId, useMemo, useState } from 'react'
+import { useEffect, useId, useState } from 'react'
 import { PhotoMedia } from '@/components/photos/PhotoMedia'
 import { Button } from '@/components/ui/Button'
 import {
@@ -11,13 +11,13 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
-import { photoCategories, type Photo, type PhotoCategory } from '@/lib/photos'
+import { photoCategories, type Photo } from '@/lib/photos'
 import { cn } from '@/lib/utils'
 
 type PhotoGridProps = {
   photos: readonly Photo[]
-  showFilters?: boolean
   columns?: 'home' | 'page'
+  statusText?: string
 }
 
 function wrapIndex(index: number, delta: number, length: number) {
@@ -26,26 +26,15 @@ function wrapIndex(index: number, delta: number, length: number) {
 
 export function PhotoGrid({
   photos,
-  showFilters = false,
   columns = 'page',
+  statusText,
 }: PhotoGridProps) {
-  const [filter, setFilter] = useState<PhotoCategory | 'all'>('all')
   const [activeId, setActiveId] = useState<string | null>(null)
   const statusId = useId()
-
-  const filtered = useMemo(
-    () =>
-      filter === 'all'
-        ? [...photos]
-        : photos.filter(photo => photo.category === filter),
-    [filter, photos]
-  )
-  const activeIndex = filtered.findIndex(photo => photo.id === activeId)
-  const active = activeIndex >= 0 ? filtered[activeIndex] : null
+  const activeIndex = photos.findIndex(photo => photo.id === activeId)
+  const active = activeIndex >= 0 ? photos[activeIndex] : null
   const open = active !== null
-  const filterLabel =
-    filter === 'all' ? 'tutte le categorie' : photoCategories[filter].label
-  const canNavigate = filtered.length > 1
+  const canNavigate = photos.length > 1
 
   useEffect(() => {
     if (!open || !canNavigate) return
@@ -53,103 +42,81 @@ export function PhotoGrid({
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'ArrowRight') {
         event.preventDefault()
-        setActiveId(filtered[wrapIndex(activeIndex, 1, filtered.length)].id)
+        setActiveId(photos[wrapIndex(activeIndex, 1, photos.length)].id)
       }
       if (event.key === 'ArrowLeft') {
         event.preventDefault()
-        setActiveId(filtered[wrapIndex(activeIndex, -1, filtered.length)].id)
+        setActiveId(photos[wrapIndex(activeIndex, -1, photos.length)].id)
       }
     }
 
     window.addEventListener('keydown', onKeyDown)
     return () => window.removeEventListener('keydown', onKeyDown)
-  }, [open, canNavigate, activeIndex, filtered])
+  }, [open, canNavigate, activeIndex, photos])
+
+  if (photos.length === 0) {
+    return (
+      <p className="rounded-sm border border-neutral-border bg-white p-6 text-neutral-secondary">
+        Nessuna foto in questa selezione.
+      </p>
+    )
+  }
 
   return (
     <div>
-      {showFilters ? (
-        <div
-          className="mb-6 flex flex-wrap gap-2"
-          role="group"
-          aria-label="Filtra le foto per categoria"
+      {statusText ? (
+        <p
+          id={statusId}
+          className="sr-only"
+          aria-live="polite"
+          aria-atomic="true"
         >
-          <FilterChip
-            active={filter === 'all'}
-            onClick={() => setFilter('all')}
-          >
-            Tutte
-          </FilterChip>
-          {(Object.keys(photoCategories) as PhotoCategory[]).map(category => (
-            <FilterChip
-              key={category}
-              active={filter === category}
-              onClick={() => setFilter(category)}
-            >
-              {photoCategories[category].label}
-            </FilterChip>
-          ))}
-        </div>
+          {statusText}
+        </p>
       ) : null}
 
-      <p
-        id={statusId}
-        className="sr-only"
-        aria-live="polite"
-        aria-atomic="true"
+      <ul
+        className={cn(
+          'grid gap-4',
+          columns === 'home'
+            ? 'sm:grid-cols-2 lg:grid-cols-4'
+            : 'sm:grid-cols-2 lg:grid-cols-3'
+        )}
+        aria-describedby={statusText ? statusId : undefined}
       >
-        {filtered.length === 0
-          ? `Nessuna foto disponibile per ${filterLabel}.`
-          : `${filtered.length} foto in ${filterLabel}.`}
-      </p>
-
-      {filtered.length === 0 ? (
-        <p className="rounded-sm border border-neutral-border bg-white p-6 text-neutral-secondary">
-          Nessuna foto in questa categoria.
-        </p>
-      ) : (
-        <ul
-          className={cn(
-            'grid gap-4',
-            columns === 'home'
-              ? 'sm:grid-cols-2 lg:grid-cols-4'
-              : 'sm:grid-cols-2 lg:grid-cols-3'
-          )}
-          aria-describedby={statusId}
-        >
-          {filtered.map((photo, index) => (
-            <li key={photo.id}>
-              <button
-                type="button"
-                onClick={() => setActiveId(photo.id)}
-                aria-label={`Apri foto: ${photo.title}. ${photo.caption}`}
-                className="group block w-full overflow-hidden rounded-sm border border-neutral-border bg-white text-left shadow-sm transition-shadow hover:shadow-md focus-visible:relative focus-visible:z-10"
-              >
-                <span className="relative block aspect-[3/2] overflow-hidden bg-primary-lighter">
-                  <PhotoMedia
-                    photo={photo}
-                    priority={index < 2}
-                    decorative
-                    sizes={
-                      columns === 'home'
-                        ? '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw'
-                        : '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw'
-                    }
-                    className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
-                  />
+        {photos.map((photo, index) => (
+          <li key={photo.id}>
+            <button
+              type="button"
+              onClick={() => setActiveId(photo.id)}
+              aria-label={`Apri foto: ${photo.title}. ${photo.caption}`}
+              className="group block w-full overflow-hidden rounded-sm border border-neutral-border bg-white text-left shadow-sm transition-shadow hover:shadow-md focus-visible:relative focus-visible:z-10"
+            >
+              <span className="relative block aspect-[3/2] overflow-hidden bg-primary-lighter">
+                <PhotoMedia
+                  photo={photo}
+                  priority={index < 2}
+                  decorative
+                  sizes={
+                    columns === 'home'
+                      ? '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw'
+                      : '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw'
+                  }
+                  className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+                />
+              </span>
+              <span className="block p-4">
+                <span className="text-sm font-semibold text-primary">
+                  {photoCategories[photo.category].label}
                 </span>
-                <span className="block p-4">
-                  <span className="text-sm font-semibold text-primary">
-                    {photoCategories[photo.category].label}
-                  </span>
-                  <span className="mt-1 block text-lg font-semibold text-neutral">
-                    {photo.title}
-                  </span>
+                <span className="mt-1 block text-lg font-semibold text-neutral">
+                  {photo.title}
                 </span>
-              </button>
-            </li>
-          ))}
-        </ul>
-      )}
+              </span>
+            </button>
+          </li>
+        ))}
+      </ul>
 
       <Dialog
         modal
@@ -181,7 +148,7 @@ export function PhotoGrid({
                     className="mt-2 text-sm text-neutral-secondary"
                     aria-live="polite"
                   >
-                    Foto {activeIndex + 1} di {filtered.length}. Usa i tasti
+                    Foto {activeIndex + 1} di {photos.length}. Usa i tasti
                     freccia per navigare.
                   </p>
                 ) : null}
@@ -191,12 +158,11 @@ export function PhotoGrid({
                   <Button
                     variant="outline"
                     aria-label={`Foto precedente: ${
-                      filtered[wrapIndex(activeIndex, -1, filtered.length)]
-                        .title
+                      photos[wrapIndex(activeIndex, -1, photos.length)].title
                     }`}
                     onClick={() =>
                       setActiveId(
-                        filtered[wrapIndex(activeIndex, -1, filtered.length)].id
+                        photos[wrapIndex(activeIndex, -1, photos.length)].id
                       )
                     }
                   >
@@ -205,11 +171,11 @@ export function PhotoGrid({
                   <Button
                     variant="outline"
                     aria-label={`Foto successiva: ${
-                      filtered[wrapIndex(activeIndex, 1, filtered.length)].title
+                      photos[wrapIndex(activeIndex, 1, photos.length)].title
                     }`}
                     onClick={() =>
                       setActiveId(
-                        filtered[wrapIndex(activeIndex, 1, filtered.length)].id
+                        photos[wrapIndex(activeIndex, 1, photos.length)].id
                       )
                     }
                   >
@@ -222,31 +188,5 @@ export function PhotoGrid({
         </DialogContent>
       </Dialog>
     </div>
-  )
-}
-
-function FilterChip({
-  active,
-  onClick,
-  children,
-}: {
-  active: boolean
-  onClick: () => void
-  children: string
-}) {
-  return (
-    <button
-      type="button"
-      aria-pressed={active}
-      onClick={onClick}
-      className={cn(
-        'min-h-11 rounded-sm border px-4 text-sm font-semibold transition-colors',
-        active
-          ? 'border-primary bg-primary text-white'
-          : 'border-neutral-border bg-white text-primary hover:bg-primary-lighter'
-      )}
-    >
-      {children}
-    </button>
   )
 }

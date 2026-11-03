@@ -1,6 +1,5 @@
 import type { Viewport } from 'next'
 import { Titillium_Web } from 'next/font/google'
-import { SiteShell } from '@/components/layout/SiteShell'
 import { JsonLd } from '@/components/seo/JsonLd'
 import { organizationJsonLd, rootMetadata, websiteJsonLd } from '@/lib/seo'
 import { cn } from '@/lib/utils'
@@ -29,11 +28,12 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
     <html
       lang="it"
+      data-scroll-behavior="smooth"
       className={cn(titillium.variable, 'h-full font-sans antialiased')}
     >
       <body className="flex min-h-full flex-col bg-background font-sans text-foreground">
         <JsonLd data={[organizationJsonLd(), websiteJsonLd()]} />
-        <SiteShell>{children}</SiteShell>
+        {children}
       </body>
     </html>
   )

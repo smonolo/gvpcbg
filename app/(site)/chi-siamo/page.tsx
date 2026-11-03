@@ -26,7 +26,7 @@ export default function ChiSiamoPage() {
       />
       <PageHero
         title="Chi siamo"
-        description="Un’organizzazione di volontariato di Protezione Civile radicata a Busto Garolfo e al servizio della comunità."
+        description="Volontariato operativo dal 1993, al servizio della comunità."
         breadcrumbs={breadcrumbs('Chi siamo')}
       />
 
@@ -51,11 +51,15 @@ export default function ChiSiamoPage() {
               con professionalità e competenza.
             </p>
             <p>
-              Oggi opera come{' '}
+              Oggi è conosciuta come{' '}
               <strong className="font-semibold text-neutral">
                 {site.name}
+              </strong>{' '}
+              (
+              <strong className="font-semibold text-neutral">
+                {site.legalName}
               </strong>
-              , mantenendo l’identità storica di {site.aka}.
+              ), mantenendo l’identità storica di {site.aka}.
             </p>
           </div>
 

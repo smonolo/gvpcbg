@@ -8,13 +8,23 @@ export function CallToAction() {
       className="bg-primary text-white"
       invert
       title="Vuoi unirti al gruppo?"
-      lead="Cerchiamo persone motivate a formarsi e a mettere tempo ed energie al servizio della sicurezza della comunità di Busto Garolfo."
+      lead="Cerchiamo persone motivate a formarsi e a impegnarsi per la sicurezza di chi vive qui."
     >
       <div className="flex flex-col gap-3 sm:flex-row">
-        <Button href="/diventa-volontario" variant="secondary" size="lg">
+        <Button
+          href="/diventa-volontario"
+          variant="secondary"
+          size="lg"
+          className="w-full sm:w-auto"
+        >
           Diventa volontario
         </Button>
-        <Button href={site.email.href} variant="inverse" size="lg">
+        <Button
+          href={site.email.href}
+          variant="inverse"
+          size="lg"
+          className="w-full sm:w-auto"
+        >
           Scrivici
         </Button>
       </div>

@@ -16,7 +16,7 @@ export function PhotoMedia({
   className = 'h-full w-full object-cover',
   decorative = false,
 }: PhotoMediaProps) {
-  const svg = photo.src.endsWith('.svg')
+  const localSvg = photo.src.endsWith('.svg') && !photo.src.startsWith('http')
 
   return (
     <Image
@@ -27,7 +27,7 @@ export function PhotoMedia({
       sizes={sizes}
       className={className}
       priority={priority}
-      unoptimized={svg}
+      unoptimized={localSvg}
     />
   )
 }

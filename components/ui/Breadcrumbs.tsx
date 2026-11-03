@@ -32,7 +32,12 @@ export function Breadcrumbs({ items }: BreadcrumbsProps) {
               ) : (
                 <span
                   aria-current={isLast ? 'page' : undefined}
-                  className={isLast ? 'font-semibold text-neutral' : undefined}
+                  className={
+                    isLast
+                      ? 'max-w-[14rem] truncate font-semibold text-neutral sm:max-w-md md:max-w-none md:whitespace-normal'
+                      : undefined
+                  }
+                  title={isLast ? item.label : undefined}
                 >
                   {item.label}
                 </span>

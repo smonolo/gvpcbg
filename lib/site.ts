@@ -1,10 +1,12 @@
 export const site = {
   shortName: 'GVPCBG',
-  name: 'SAFETY TEAM OdV',
+  name: 'SAFETY TEAM',
+  legalName: 'SAFETY TEAM OdV',
   fullName: 'SAFETY TEAM OdV Gruppo Volontari Protezione Civile Busto Garolfo',
   aka: 'Gruppo Volontari Protezione Civile Busto Garolfo',
   description:
-    'Associazione di volontariato di Protezione Civile attiva a Busto Garolfo dal 1993: prevenzione del rischio, gestione delle emergenze e servizio alla comunità.',
+    'Dal 1993 al servizio della comunità: prevenzione del rischio, gestione delle emergenze e volontariato operativo.',
+
   foundedYear: 1993,
   copyrightYear: 2026,
   address: {
@@ -44,7 +46,39 @@ export const site = {
     section: 'Sezione D) Protezione Civile',
     details: 'foglio 570, progressivo 2275 (decreto 17/12/1997)',
   },
+  credits: {
+    author: {
+      name: 'Stefano Monolo',
+      href: 'https://smnl.dev',
+    },
+    repository: {
+      label: 'GitHub',
+      href: 'https://github.com/smonolo/gvpcbg',
+    },
+    license: {
+      label: 'PolyForm Noncommercial 1.0.0',
+      href: 'https://github.com/smonolo/gvpcbg/blob/main/LICENSE',
+    },
+  },
 } as const
+
+export function gitCommitSha() {
+  const sha =
+    process.env.VERCEL_GIT_COMMIT_SHA ||
+    process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA
+  return sha?.trim() || null
+}
+
+export function gitCommitShort() {
+  const sha = gitCommitSha()
+  return sha ? sha.slice(0, 7) : null
+}
+
+export function gitCommitHref() {
+  const sha = gitCommitSha()
+  if (!sha) return site.credits.repository.href
+  return `${site.credits.repository.href}/commit/${sha}`
+}
 
 export function siteUrl() {
   const configured = process.env.NEXT_PUBLIC_SITE_URL?.trim().replace(/\/$/, '')

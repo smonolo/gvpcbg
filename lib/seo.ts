@@ -2,13 +2,14 @@ import type { Metadata } from 'next'
 import { site, siteUrl } from '@/lib/site'
 
 export const seo = {
-  titleDefault: `${site.shortName} · ${site.name}`,
-  titleTemplate: `%s · ${site.shortName}`,
+  titleDefault: `${site.name} · Busto Garolfo`,
+  titleTemplate: `%s · ${site.name}`,
   description: site.description,
   locale: 'it_IT',
   language: 'it',
   keywords: [
     'GVPCBG',
+    'SAFETY TEAM',
     'SAFETY TEAM OdV',
     'Protezione Civile Busto Garolfo',
     'Gruppo Volontari Protezione Civile Busto Garolfo',
@@ -21,15 +22,15 @@ export const seo = {
     'prevenzione rischio',
     'antincendio boschivo',
     'AIB',
-    'OdV',
     'organizzazione di volontariato',
   ],
   ogImage: {
     path: '/opengraph-image',
     width: 1200,
     height: 630,
-    alt: `${site.shortName} — ${site.aka}`,
+    alt: `${site.name} — ${site.aka}`,
   },
+
   geo: {
     region: 'IT-MI',
     placename: 'Busto Garolfo',
@@ -54,12 +55,13 @@ export const pages = {
     path: '/chi-siamo',
     title: 'Chi siamo',
     description:
-      'Storia, missione e organizzazione di SAFETY TEAM OdV GVPCBG: volontariato di Protezione Civile a Busto Garolfo dal 1993.',
+      'Storia, missione e organizzazione: volontariato operativo dal 1993 al servizio della comunità.',
     keywords: [
       'chi siamo',
       'storia GVPCBG',
       'missione',
-      'Safety Team OdV',
+      'SAFETY TEAM',
+
       'registro volontariato Lombardia',
     ],
   },
@@ -67,7 +69,7 @@ export const pages = {
     path: '/attivita',
     title: 'Attività',
     description:
-      'Attività di Protezione Civile a Busto Garolfo: emergenze, prevenzione, antincendio boschivo AIB, logistica e formazione.',
+      'Emergenze, prevenzione, antincendio boschivo AIB, logistica e formazione sul territorio.',
     keywords: [
       'attività protezione civile',
       'gestione emergenze',
@@ -77,11 +79,24 @@ export const pages = {
       'formazione volontari',
     ],
   },
+  novita: {
+    path: '/novita',
+    title: 'Novità',
+    description:
+      'Comunicati, resoconti delle attività e aggiornamenti dal gruppo.',
+    keywords: [
+      'novità',
+      'notizie',
+      'comunicazioni',
+      'avvisi',
+      'articoli protezione civile',
+    ],
+  },
   foto: {
     path: '/foto',
     title: 'Foto',
     description:
-      'Galleria fotografica GVPCBG: esercitazioni, antincendio boschivo, mezzi e momenti di vita del gruppo a Busto Garolfo.',
+      'Esercitazioni, antincendio boschivo, mezzi e momenti di vita associativa.',
     keywords: [
       'foto',
       'galleria',
@@ -94,7 +109,7 @@ export const pages = {
     path: '/diventa-volontario',
     title: 'Diventa volontario',
     description:
-      'Unisciti a GVPCBG: come diventare volontario di Protezione Civile a Busto Garolfo, requisiti e contatti per candidarti.',
+      'Cosa comporta entrare nel gruppo, requisiti e come candidarti.',
     keywords: [
       'diventa volontario',
       'iscrizione volontariato',
@@ -106,7 +121,7 @@ export const pages = {
     path: '/contatti',
     title: 'Contatti',
     description:
-      'Contatti GVPCBG: Via San Domenico Savio 37, Busto Garolfo. Telefono 0331 536636, email e orari di apertura della sede.',
+      'Sede, orari, recapiti del gruppo e numeri di emergenza italiani (112, 113, 115, 118, 1515).',
     keywords: [
       'contatti',
       'indirizzo',
@@ -114,20 +129,24 @@ export const pages = {
       'email',
       'orari',
       'sede protezione civile',
+      'numeri emergenza',
+      '112',
+      '118',
     ],
   },
+
   privacy: {
     path: '/privacy',
     title: 'Privacy',
     description:
-      'Informativa privacy del sito GVPCBG: trattamento dei dati personali, cookie tecnici e diritti degli interessati.',
+      'Come trattiamo i dati di chi naviga il sito, cookie tecnici e diritti degli interessati.',
     keywords: ['privacy', 'GDPR', 'cookie', 'protezione dati'],
   },
   accessibilita: {
     path: '/accessibilita',
     title: 'Accessibilità',
     description:
-      'Dichiarazione di accessibilità del sito GVPCBG, in coerenza con le linee guida AGID e i criteri WCAG.',
+      'Impegno AGID e WCAG: rendere i contenuti fruibili da tutte le persone.',
     keywords: ['accessibilità', 'AGID', 'WCAG', 'usabilità'],
   },
 } as const
@@ -162,18 +181,15 @@ export function buildMetadata(page: PageSeo): Metadata {
       type: 'website',
       locale: seo.locale,
       siteName: site.fullName,
-      title: page.absoluteTitle
-        ? page.title
-        : `${page.title} · ${site.shortName}`,
+      title: page.absoluteTitle ? page.title : `${page.title} · ${site.name}`,
       description: page.description,
       url,
       images: [image],
     },
     twitter: {
       card: 'summary_large_image',
-      title: page.absoluteTitle
-        ? page.title
-        : `${page.title} · ${site.shortName}`,
+      title: page.absoluteTitle ? page.title : `${page.title} · ${site.name}`,
+
       description: page.description,
       images: [seo.ogImage.path],
     },
@@ -188,7 +204,7 @@ export function rootMetadata(): Metadata {
       template: seo.titleTemplate,
     },
     description: seo.description,
-    applicationName: site.shortName,
+    applicationName: site.name,
     authors: [{ name: site.fullName, url: siteUrl() }],
     creator: site.fullName,
     publisher: site.fullName,
@@ -251,7 +267,8 @@ export function organizationJsonLd() {
     '@id': `${siteUrl()}/#organization`,
     name: site.fullName,
     legalName: site.fullName,
-    alternateName: [site.shortName, site.aka, site.name],
+    alternateName: [site.shortName, site.legalName, site.aka, site.name],
+
     description: site.description,
     url: siteUrl(),
     logo: `${siteUrl()}/images/logo.png`,
@@ -332,9 +349,7 @@ export function webPageJsonLd(
   options?: { type?: 'WebPage' | 'ContactPage' | 'AboutPage' }
 ) {
   const url = page.path === '/' ? siteUrl() : `${siteUrl()}${page.path}`
-  const name = page.absoluteTitle
-    ? page.title
-    : `${page.title} · ${site.shortName}`
+  const name = page.absoluteTitle ? page.title : `${page.title} · ${site.name}`
 
   return {
     '@context': 'https://schema.org',

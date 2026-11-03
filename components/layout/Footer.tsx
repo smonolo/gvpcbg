@@ -1,21 +1,20 @@
 import Link from 'next/link'
 import { opensInNewTabLabel, externalLinkProps } from '@/lib/a11y'
 import { mainNav, utilityNav } from '@/lib/navigation'
-import { formatCityLine, site } from '@/lib/site'
+import { formatCityLine, gitCommitHref, gitCommitShort, site } from '@/lib/site'
 
 export function Footer() {
+  const commit = gitCommitShort()
+
   return (
     <footer className="mt-auto bg-primary-dark text-white">
-      <div className="container-content grid gap-10 py-12 md:grid-cols-3">
+      <div className="container-content grid gap-10 py-10 sm:py-12 md:grid-cols-2 lg:grid-cols-3">
         <div>
-          <p className="text-sm font-semibold tracking-wide text-primary-light uppercase">
-            {site.shortName}
-          </p>
-          <p className="mt-2 text-xl font-bold">{site.name}</p>
+          <p className="text-xl font-bold">{site.legalName}</p>
           <p className="mt-1 text-sm text-white/80">{site.aka}</p>
           <p className="mt-4 text-sm text-white/80">
-            Organizzazione di Volontariato iscritta al Registro Regionale del
-            Volontariato della Lombardia.
+            Organizzazione di Volontariato (OdV) iscritta al Registro Regionale
+            del Volontariato della Lombardia.
           </p>
         </div>
 
@@ -75,7 +74,7 @@ export function Footer() {
                 href={site.social.facebook.href}
                 className="text-white hover:underline"
                 aria-label={opensInNewTabLabel(
-                  `Pagina Facebook ufficiale di ${site.shortName}`
+                  `Pagina Facebook ufficiale di ${site.name}`
                 )}
                 {...externalLinkProps}
               >
@@ -105,6 +104,62 @@ export function Footer() {
               ))}
             </ul>
           </nav>
+        </div>
+      </div>
+
+      <div className="border-t border-white/15 bg-black/20">
+        <div className="container-content flex flex-col gap-2 py-3 text-sm text-white/70 md:flex-row md:flex-wrap md:items-center md:justify-between md:gap-x-6">
+          <p>
+            Sito realizzato da{' '}
+            <a
+              href={site.credits.author.href}
+              className="font-semibold text-white hover:underline"
+              aria-label={opensInNewTabLabel(site.credits.author.name)}
+              {...externalLinkProps}
+            >
+              {site.credits.author.name}
+            </a>
+          </p>
+          <p className="flex flex-wrap items-center gap-x-3 gap-y-1">
+            <a
+              href={site.credits.repository.href}
+              className="text-white hover:underline"
+              aria-label={opensInNewTabLabel(
+                'Codice sorgente del sito su GitHub'
+              )}
+              {...externalLinkProps}
+            >
+              Codice sorgente su {site.credits.repository.label}
+            </a>
+            <span aria-hidden="true" className="text-white/40">
+              ·
+            </span>
+            <a
+              href={site.credits.license.href}
+              className="text-white hover:underline"
+              aria-label={opensInNewTabLabel(
+                `Licenza ${site.credits.license.label}`
+              )}
+              {...externalLinkProps}
+            >
+              {site.credits.license.label}
+            </a>
+            {commit ? (
+              <>
+                <span aria-hidden="true" className="text-white/40">
+                  ·
+                </span>
+                <a
+                  href={gitCommitHref()}
+                  className="font-mono text-white hover:underline"
+                  aria-label={opensInNewTabLabel(`Commit ${commit}`)}
+                  {...externalLinkProps}
+                >
+                  {commit}
+                </a>
+              </>
+            ) : null}
+          </p>
         </div>
       </div>
     </footer>

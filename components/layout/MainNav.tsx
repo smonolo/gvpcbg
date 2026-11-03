@@ -69,7 +69,7 @@ export function MainNav() {
   return (
     <div className="border-b border-neutral-border bg-white">
       <div className="container-content">
-        <div className="flex items-center justify-between gap-3 py-2 md:hidden">
+        <div className="flex items-center justify-between gap-3 py-2 lg:hidden">
           <p className="text-sm font-semibold text-neutral">Menu</p>
           <button
             ref={toggleRef}
@@ -83,8 +83,8 @@ export function MainNav() {
           </button>
         </div>
 
-        <nav aria-label="Navigazione principale" className="hidden md:block">
-          <ul className="flex flex-row items-stretch">
+        <nav aria-label="Navigazione principale" className="hidden lg:block">
+          <ul className="flex flex-row flex-wrap items-stretch">
             {mainNav.map(item => {
               const active = isActivePath(pathname, item.href)
               return (
@@ -93,7 +93,7 @@ export function MainNav() {
                     href={item.href}
                     aria-current={active ? 'page' : undefined}
                     className={cn(
-                      'flex min-h-11 items-center border-b-4 px-4 py-3 text-base font-semibold no-underline transition-colors',
+                      'flex min-h-11 items-center border-b-4 px-3 py-3 text-sm font-semibold no-underline transition-colors xl:px-4 xl:text-base',
                       active
                         ? 'border-primary text-primary'
                         : 'border-transparent text-neutral hover:border-primary-light hover:text-primary'
@@ -115,7 +115,7 @@ export function MainNav() {
           role="dialog"
           aria-modal="true"
           aria-labelledby={titleId}
-          className="fixed inset-0 z-50 flex flex-col bg-white motion-safe:animate-in motion-safe:duration-200 motion-safe:fade-in md:hidden"
+          className="fixed inset-0 z-50 flex flex-col bg-white pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)] motion-safe:animate-in motion-safe:duration-200 motion-safe:fade-in lg:hidden"
         >
           <div className="flex items-center justify-between gap-3 border-b border-neutral-border px-4 py-3">
             <p id={titleId} className="text-lg font-bold text-neutral">
@@ -133,7 +133,7 @@ export function MainNav() {
 
           <nav
             aria-label="Navigazione principale"
-            className="flex-1 overflow-y-auto"
+            className="flex-1 overflow-y-auto overscroll-contain"
           >
             <ul className="flex flex-col py-2">
               {mainNav.map(item => {

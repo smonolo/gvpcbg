@@ -41,15 +41,12 @@ export default function AttivitaPage() {
       />
       <PageHero
         title="Attività"
-        description="Gli ambiti in cui i volontari del gruppo operano, si formano e supportano il territorio."
+        description="Emergenze, prevenzione, AIB, logistica e formazione."
         breadcrumbs={breadcrumbs('Attività')}
       />
 
-      <Section
-        title="Ambiti operativi"
-        lead="Un impegno concreto che unisce preparazione tecnica, presenza sul territorio e collaborazione istituzionale."
-      >
-        <div className="grid gap-5 md:grid-cols-2">
+      <Section title="Ambiti operativi">
+        <div className="grid gap-5 sm:grid-cols-2">
           {activities.map(activity => (
             <Card key={activity.slug} title={activity.title}>
               <p>{activity.summary}</p>
@@ -59,7 +56,7 @@ export default function AttivitaPage() {
       </Section>
 
       <Section className="bg-neutral-bg-soft" title="Come lavoriamo">
-        <div className="grid gap-5 md:grid-cols-3">
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {methods.map(item => (
             <Card key={item.title} title={item.title}>
               <p>{item.body}</p>

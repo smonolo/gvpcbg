@@ -1,4 +1,6 @@
 import type { ReactNode } from 'react'
+import { Suspense } from 'react'
+import { AnnouncementsSlot } from '@/components/announcements/AnnouncementsSlot'
 import { Footer } from '@/components/layout/Footer'
 import { HeaderBrand } from '@/components/layout/HeaderBrand'
 import { MainNav } from '@/components/layout/MainNav'
@@ -14,6 +16,9 @@ export function SiteShell({ children }: { children: ReactNode }) {
         <HeaderBrand />
         <MainNav />
       </header>
+      <Suspense fallback={null}>
+        <AnnouncementsSlot />
+      </Suspense>
       <main
         id="contenuto-principale"
         className="flex-1 outline-none"
